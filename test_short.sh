@@ -77,9 +77,9 @@ for file in ${allFiles[@]}; do
   cat $file| tr '[:upper:]' '[:lower:]' | tr '[:space:]' '[\n*]' |tr -d '1234567890()\"\047&$,.!?:[];\t' | tr -d '[:digit:]' | grep -v "^\s*$" | LC_COLLATE=C sort > $outfile
   cp output.txt $resfile
   diff -q output.txt $outfile 1>/dev/null
+  code2=$?
   rm output.txt -f
-
-  if [[ $? == "0" ]]
+  if [[ $code2 == "0" ]]
   then
     echo "[$currtest/$numtests] Ok: Rätt sorterad fil skapad från filen \"$file\". Filen \"$resfile\" har samma innehåll som filen \"$outfile\"".
   else
